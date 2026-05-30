@@ -14,7 +14,7 @@ import {
 import { getDashboardStats, getInventories, getItems } from '../api';
 import { ChartAreaInteractive, type InventoryChartDatum } from '../components/chart-area-interactive';
 import DashboardBar from '../components/DashboardBar';
-import { SidebarTrigger } from '../components/ui/sidebar';
+import DashboardPageHeader from '../components/DashboardPageHeader';
 import type { DashboardStats, Inventory, Item } from '../types';
 
 const emptyStats: DashboardStats = {
@@ -158,18 +158,12 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
-        <div className="flex items-start gap-2">
-          <SidebarTrigger className="mt-0.5 size-9 border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground" />
-          <div>
-            <h1 className="text-2xl font-semibold tracking-tight text-stone-950 dark:text-stone-100">Dashboard</h1>
-            <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">Inventory operations workspace</p>
-          </div>
-        </div>
-        <div className="flex flex-wrap items-center gap-2 sm:justify-end">
-          <DashboardBar />
-        </div>
-      </div>
+      <DashboardPageHeader
+        eyebrow="Inventory operations workspace"
+        title="Dashboard"
+        description="Track stock, watch risk, and jump into your busiest inventories."
+        actions={<DashboardBar />}
+      />
 
       {error ? (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">

@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { Loader2, PackageSearch, Search } from 'lucide-react';
 import { getItems } from '../api';
 import type { Item } from '../types';
-import { SidebarTrigger } from '../components/ui/sidebar';
 import DashboardBar from '../components/DashboardBar';
+import DashboardPageHeader from '../components/DashboardPageHeader';
 
 const statusClasses: Record<Item['status'], string> = {
   'in-stock': 'bg-emerald-50 text-emerald-700 ring-emerald-200',
@@ -99,28 +99,26 @@ export default function Items() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-start">
-        <div className="flex items-start gap-2">
-          <SidebarTrigger className="mt-0.5 size-9 border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground" />
-          <div>
-            <p className="text-sm font-medium text-blue-700">Global inventory</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-stone-950">All Items</h2>
-          </div>
-        </div>
-        <div className="flex flex-wrap items-center gap-2 sm:justify-end">
-          <DashboardBar />
-          <label className="relative block w-full max-w-md">
-            <span className="sr-only">Search by name or SKU</span>
-            <Search size={18} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-stone-500" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="w-full rounded-lg border border-stone-300 bg-white py-2.5 pl-10 pr-3 text-sm text-stone-950 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
-              placeholder="Search item name or SKU"
-            />
-          </label>
-        </div>
-      </div>
+      <DashboardPageHeader
+        eyebrow="Global inventory"
+        title="All Items"
+        description="Search across every item in your workspace."
+        actions={(
+          <>
+            <DashboardBar />
+            <label className="relative block w-full max-w-md">
+              <span className="sr-only">Search by name or SKU</span>
+              <Search size={18} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-stone-500" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="w-full rounded-lg border border-stone-300 bg-white py-2.5 pl-10 pr-3 text-sm text-stone-950 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                placeholder="Search item name or SKU"
+              />
+            </label>
+          </>
+        )}
+      />
 
       {error ? (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">

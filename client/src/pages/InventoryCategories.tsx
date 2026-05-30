@@ -3,8 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import { ArrowRight, ChevronRight, Layers3, Loader2, Package, PackagePlus, Pencil, Trash2 } from 'lucide-react';
 import { createCategory, deleteCategory, getCategories, getInventory, updateCategory } from '../api';
 import Modal from '../components/Modal';
-import { SidebarTrigger } from '../components/ui/sidebar';
 import DashboardBar from '../components/DashboardBar';
+import DashboardPageHeader from '../components/DashboardPageHeader';
 import type { Category, Inventory } from '../types';
 
 export default function InventoryCategories() {
@@ -105,26 +105,24 @@ export default function InventoryCategories() {
         <span className="text-stone-800">{inventoryName}</span>
       </nav>
 
-      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
-        <div className="flex items-start gap-2">
-          <SidebarTrigger className="mt-0.5 size-9 border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground" />
-          <div>
-            <p className="text-sm font-medium text-blue-700">Category overview</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-stone-950">{inventoryName}</h2>
-          </div>
-        </div>
-        <div className="flex flex-wrap items-center gap-2 sm:justify-end">
-          <DashboardBar />
-          <button
-            type="button"
-            onClick={openCreateModal}
-            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition-colors hover:bg-blue-700"
-          >
-            <PackagePlus size={18} />
-            Create Category
-          </button>
-        </div>
-      </div>
+      <DashboardPageHeader
+        eyebrow="Category overview"
+        title={inventoryName}
+        description="Create categories to keep item groups tidy."
+        actions={(
+          <>
+            <DashboardBar />
+            <button
+              type="button"
+              onClick={openCreateModal}
+              className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition-colors hover:bg-blue-700"
+            >
+              <PackagePlus size={18} />
+              Create Category
+            </button>
+          </>
+        )}
+      />
 
       {error ? (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">

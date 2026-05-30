@@ -45,7 +45,7 @@ const navItems = [
 ];
 
 function SidebarAutoCollapse() {
-  const { isMobile, setOpen, setOpenMobile } = useSidebar();
+  const { isMobile, setOpenMobile } = useSidebar();
   const location = useLocation();
   const previousPathname = useRef(location.pathname);
 
@@ -58,11 +58,8 @@ function SidebarAutoCollapse() {
 
     if (isMobile) {
       setOpenMobile(false);
-      return;
     }
-
-    setOpen(false);
-  }, [isMobile, location.pathname, setOpen, setOpenMobile]);
+  }, [isMobile, location.pathname, setOpenMobile]);
 
   return null;
 }
@@ -107,27 +104,30 @@ export default function AppLayout() {
   return (
     <SidebarProvider>
       <SidebarAutoCollapse />
-      <Sidebar collapsible="icon">
-        <SidebarHeader>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild size="lg" tooltip="invvy">
-                <Link to="/">
-                  <span className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
-                    <BarChart3 className="size-4" />
-                  </span>
-                  <span className="grid flex-1 text-left leading-tight">
-                    <span className="truncate font-semibold">invvy</span>
-                    <span className="truncate text-xs text-muted-foreground">Inventory workspace</span>
-                  </span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
+      <Sidebar collapsible="icon" className="border-r border-sidebar-border/70 bg-sidebar/95">
+        <SidebarHeader className="p-2">
+          <div className="rounded-lg border border-sidebar-border/70 bg-sidebar-accent/40 p-2 group-data-[collapsible=icon]:border-transparent group-data-[collapsible=icon]:bg-transparent group-data-[collapsible=icon]:p-0">
+            <Link
+              to="/"
+              className="flex h-11 items-center gap-3 rounded-lg px-2 text-sidebar-foreground transition-none hover:bg-transparent hover:text-sidebar-foreground group-data-[collapsible=icon]:mx-auto group-data-[collapsible=icon]:size-10 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0"
+              aria-label="Go to dashboard"
+            >
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
+                <BarChart3 className="size-4" />
+              </span>
+              <span className="grid min-w-0 flex-1 text-left leading-tight group-data-[collapsible=icon]:hidden">
+                <span className="truncate text-base font-semibold">invvy</span>
+                <span className="truncate text-xs text-sidebar-foreground/70">Inventory workspace</span>
+              </span>
+            </Link>
+          </div>
         </SidebarHeader>
 
         <SidebarContent>
           <SidebarGroup>
+            <div className="px-2 pb-1 text-[11px] font-semibold uppercase text-sidebar-foreground/45 group-data-[collapsible=icon]:hidden">
+              Workspace
+            </div>
             <SidebarGroupContent>
               <SidebarMenu>
                 {navItems.map(({ to, label, icon: Icon, end }) => {
@@ -135,7 +135,12 @@ export default function AppLayout() {
 
                   return (
                     <SidebarMenuItem key={to}>
-                      <SidebarMenuButton asChild isActive={isActive} tooltip={label}>
+                      <SidebarMenuButton
+                        asChild
+                        isActive={isActive}
+                        tooltip={label}
+                        className="rounded-lg px-3 py-2.5"
+                      >
                         <NavLink to={to} end={end}>
                           <Icon />
                           <span>{label}</span>
