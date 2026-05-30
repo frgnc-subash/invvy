@@ -1,0 +1,27 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv
+venv/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Local database fallback
+sql_app.db
+*.sqlite
+*.sqlite3
+*.db

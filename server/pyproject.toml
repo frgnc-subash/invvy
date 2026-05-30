@@ -1,0 +1,20 @@
+[project]
+name = "server"
+version = "0.1.0"
+description = "invvy FastAPI backend"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "bcrypt",
+    "fastapi",
+    "httpx>=0.28.1",
+    "psycopg2-binary",
+    "pydantic",
+    "pydantic-settings",
+    "pytest>=9.0.3",
+    "python-dotenv",
+    "python-jose[cryptography]",
+    "python-multipart",
+    "sqlalchemy",
+    "uvicorn",
+]

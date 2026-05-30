@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: invvy-backend
+    runtime: docker
+    dockerfilePath: ./server/Dockerfile
+    dockerContext: ./server
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_CONNECT_TIMEOUT
+        value: 3
+      - key: USE_LOCAL_SQLITE
+        value: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false

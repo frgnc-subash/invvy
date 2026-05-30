@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+client/node_modules/
+
+# Build output
+dist/
+client/dist/
+server/dist/
+build/
+server/build/
+
+# Environment files
+.env
+.env.*
+client/.env
+client/.env.*
+server/.env
+server/.env.*
+!client/.env.example
+!server/.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+server/sql_app.db
+*.sqlite
+*.sqlite3
+*.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Editor and OS files
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
