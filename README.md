@@ -106,4 +106,4 @@ After deployment, copy the Vercel domain and add it to the backend `CORS_ORIGINS
 
 - `DATABASE_URL` for Postgres if you want persistent storage
 - `JWT_SECRET` must be set in production
-- `CORS_ORIGINS` should include your Vercel frontend URL, for example `https://your-app.vercel.app`
+- `CORS_ORIGINS` should include your Vercel frontend URL, for example `https://invvyy.vercel.app`

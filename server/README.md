@@ -92,5 +92,5 @@ docker run -p 8000:8000 --env-file .env invvy-backend
 ## Notes
 
 - CORS is configured from `CORS_ORIGINS`, with `*` as a fallback.
+- For your deployed frontend, include `https://invvyy.vercel.app` in `CORS_ORIGINS`.
 - The backend entry point is `app.main:app`.
-

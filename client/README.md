@@ -58,4 +58,4 @@ If you deploy this app to Vercel, use these settings:
 - Output Directory: `dist`
 - Environment Variable: `VITE_API_URL=https://invvy.onrender.com/api`
 
-After the Vercel deployment is live, add the Vercel domain to the backend `CORS_ORIGINS` env var on Render.
+After the Vercel deployment is live, add `https://invvyy.vercel.app` to the backend `CORS_ORIGINS` env var on Render.

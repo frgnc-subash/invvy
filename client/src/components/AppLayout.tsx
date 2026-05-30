@@ -8,7 +8,7 @@ import {
   PackageSearch,
 } from 'lucide-react';
 import { DEMO_EMAIL } from '../App';
-import { getMe, TOKEN_KEY } from '../api';
+import { getMe, invalidateApiCache, TOKEN_KEY } from '../api';
 import type { User } from '../types';
 import {
   DropdownMenu,
@@ -56,6 +56,7 @@ export default function AppLayout() {
   }, []);
 
   const handleLogout = () => {
+    invalidateApiCache();
     localStorage.removeItem(TOKEN_KEY);
     window.location.assign('/login');
   };
