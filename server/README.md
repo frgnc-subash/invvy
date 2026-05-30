@@ -43,6 +43,10 @@ Copy `.env.example` and configure the values you need.
 - `JWT_SECRET` - secret used to sign JWT tokens
 - `PORT` - deployment port used by hosting platforms
 - `CORS_ORIGINS` - comma-separated list of allowed frontend origins
+- `DEMO_USER_ENABLED` - creates/updates the demo login on startup when `true`
+- `DEMO_EMAIL` - demo login email, defaults to `demo@invvy.app`
+- `DEMO_PASSWORD` - demo login password, defaults to `password`
+- `DEMO_NAME` - display name for the demo user
 
 ## Database Behavior
 
@@ -93,4 +97,5 @@ docker run -p 8000:8000 --env-file .env invvy-backend
 
 - CORS is configured from `CORS_ORIGINS`, with `*` as a fallback.
 - For your deployed frontend, include `https://invvyy.vercel.app` in `CORS_ORIGINS`.
+- The default demo account is `demo@invvy.app` / `password` unless overridden by environment variables.
 - The backend entry point is `app.main:app`.

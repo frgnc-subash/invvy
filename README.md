@@ -59,6 +59,9 @@ Backend:
 - `JWT_SECRET` - signing key for access tokens
 - `CORS_ORIGINS` - comma-separated allowed origins
 - `PORT` - deployment port used by hosting platforms
+- `DEMO_USER_ENABLED` - creates/updates the demo login on startup when `true`
+- `DEMO_EMAIL` - demo login email, defaults to `demo@invvy.app`
+- `DEMO_PASSWORD` - demo login password, defaults to `password`
 
 Frontend:
 

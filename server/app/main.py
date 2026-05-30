@@ -5,8 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 from app import crud, models, schemas
-from app.auth import create_access_token, get_current_user, verify_password
-from app.database import engine, get_db
+from app.auth import create_access_token, get_current_user, hash_password, verify_password
+from app.database import SessionLocal, engine, get_db
 
 app = FastAPI(title="invvy API")
 
@@ -26,9 +26,45 @@ app.add_middleware(
 )
 
 
+def _env_flag(name: str, default: bool) -> bool:
+    raw_value = os.getenv(name)
+    if raw_value is None:
+        return default
+    return raw_value.lower() in {"1", "true", "yes", "on"}
+
+
+def seed_demo_user() -> None:
+    if not _env_flag("DEMO_USER_ENABLED", True):
+        return
+
+    email = os.getenv("DEMO_EMAIL", "demo@invvy.app").strip().lower()
+    password = os.getenv("DEMO_PASSWORD", "password")
+    name = os.getenv("DEMO_NAME", "Demo User")
+
+    if not email or not password:
+        return
+
+    db = SessionLocal()
+    try:
+        user = crud.get_user_by_email(db, email)
+        if user is None:
+            crud.create_user(
+                db,
+                schemas.UserRegister(email=email, password=password, name=name),
+            )
+            return
+
+        if not verify_password(password, user.hashed_password):
+            user.hashed_password = hash_password(password)
+            db.commit()
+    finally:
+        db.close()
+
+
 @app.on_event("startup")
 def on_startup() -> None:
     models.Base.metadata.create_all(bind=engine)
+    seed_demo_user()
 
 
 @app.get("/")

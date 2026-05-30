@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import {
   BarChart3,
@@ -35,6 +35,7 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarRail,
+  useSidebar,
 } from './ui/sidebar';
 
 const navItems = [
@@ -42,6 +43,29 @@ const navItems = [
   { to: '/inventories', label: 'Inventories', icon: Boxes, end: false },
   { to: '/items', label: 'All Items', icon: PackageSearch, end: true },
 ];
+
+function SidebarAutoCollapse() {
+  const { isMobile, setOpen, setOpenMobile } = useSidebar();
+  const location = useLocation();
+  const previousPathname = useRef(location.pathname);
+
+  useEffect(() => {
+    if (previousPathname.current === location.pathname) {
+      return;
+    }
+
+    previousPathname.current = location.pathname;
+
+    if (isMobile) {
+      setOpenMobile(false);
+      return;
+    }
+
+    setOpen(false);
+  }, [isMobile, location.pathname, setOpen, setOpenMobile]);
+
+  return null;
+}
 
 export default function AppLayout() {
   const [user, setUser] = useState<User | null>(null);
@@ -82,6 +106,7 @@ export default function AppLayout() {
 
   return (
     <SidebarProvider>
+      <SidebarAutoCollapse />
       <Sidebar collapsible="icon">
         <SidebarHeader>
           <SidebarMenu>
